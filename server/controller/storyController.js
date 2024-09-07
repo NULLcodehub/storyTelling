@@ -2,21 +2,21 @@ const Story = require('../models/story');
 
 const createStoryBranch = async (req, res) => {
   try {
-    const story = await createRecursiveStory(req.body);
+    const story = await createRecursiveStory(req.body,true);
     res.status(201).json(story);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-const createRecursiveStory = async (data) => {
+const createRecursiveStory = async (data,isRoot) => {
   const { title, content, choices } = data;
   console.log(title,content,choices)
-  const newStory = new Story({ title, content });
+  const newStory = new Story({ title, content,isRoot });
 
   if (choices && choices.length > 0) {
     for (let choice of choices) {
-      const nextBranch = await createRecursiveStory(choice.nextBranch); 
+      const nextBranch = await createRecursiveStory(choice.nextBranch,false); 
       newStory.choices.push({ text: choice.text, nextBranch: nextBranch._id });
     }
   }
@@ -36,8 +36,27 @@ const getStoryById = async (req, res) => {
   }
 };
 
+const getAllStories=async (req,res)=>{
+  try {
+      const stories=await Story.find({isRoot:true})
+
+      const rootBranch= stories.map(story=>({
+        _id:story._id,
+        title:story.title,
+        content:story.content
+      }))
+      console.log(rootBranch)
+      res.send(rootBranch);
+  } catch (error) {
+    console.log(error.massage)
+    res.send(error.message)
+  }
+
+
+}
 
 
 
 
-module.exports = {createStoryBranch, getStoryById};
+
+module.exports = {createStoryBranch, getStoryById,getAllStories};

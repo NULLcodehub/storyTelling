@@ -15,6 +15,7 @@ const storySchema=new mongoose.Schema({
     title:{type:String,required:true},
     content:{type:String,required:true},
     choices:[optionSchema],
+    isRoot:{type:Boolean,default:true},
     Endding:{type: Boolean, default: false}
 })
 
