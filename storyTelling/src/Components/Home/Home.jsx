@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import "./Home.css"
 import Story from '../Story/Story';
 import axios from 'axios'
 
+import StoryContext from '../../StoryCentext/StoryContext';
 
 
 const Home = () => {
 
-
-    useEffect(()=>{
-        
-    })
+    const {stories,loading}=useContext(StoryContext)
+    console.log(stories,loading)
 
 
 
