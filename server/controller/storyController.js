@@ -27,9 +27,12 @@ const createRecursiveStory = async (data,isRoot) => {
 
 
 const getStoryById = async (req, res) => {
+  console.log( "first",req.params.id)
   try {
-    const story = await Story.findById(req.params.id).populate('choices.nextBranch');
-    console.log(story)
+    const id= req.params.id
+    // console.log(id)
+    const story = await Story.findById(id).populate('choices.nextBranch');
+    // console.log(story)
     res.json(story);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -45,7 +48,7 @@ const getAllStories=async (req,res)=>{
         title:story.title,
         content:story.content
       }))
-      console.log(rootBranch)
+      // console.log(rootBranch)
       res.send(rootBranch);
   } catch (error) {
     console.log(error.massage)
