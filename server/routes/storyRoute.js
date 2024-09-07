@@ -1,9 +1,15 @@
 const express = require('express')
-const createStoryBranch = require('../controller/storyController');
+const {createStoryBranch,getStoryById} = require('../controller/storyController');
+
 const router=express.Router()
 
 
 router.post('/create',createStoryBranch)
+
+
+
+
+router.get('/:id',getStoryById)
 
 
 

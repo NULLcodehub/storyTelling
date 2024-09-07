@@ -26,5 +26,18 @@ const createRecursiveStory = async (data) => {
 };
 
 
+const getStoryById = async (req, res) => {
+  try {
+    const story = await Story.findById(req.params.id).populate('choices.nextBranch');
+    console.log(story)
+    res.json(story);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-module.exports = createStoryBranch;
+
+
+
+
+module.exports = {createStoryBranch, getStoryById};
