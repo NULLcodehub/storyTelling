@@ -20,9 +20,21 @@ const Home = () => {
                 <button><div className='bg-red-500 p-3 rounded-md text-white hover:bg-red-600'>Write Your Own Story</div></button>
             </div>
 
-            <div>
-                <Story/>
+           
+            <div className='flex justify-center '>
+
+                {
+                    stories.length > 0 ? (
+                        stories.map((story)=>(
+                            // <h1>{story.title}</h1>
+                            <Story story={story} key={story._id}/>
+                        ))
+
+                    ) : ( <p>story not availabe</p>)
+                }
+                
             </div>
+            
 
         </div>
     );
