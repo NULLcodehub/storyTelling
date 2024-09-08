@@ -12,6 +12,7 @@ const optionSchema =new mongoose.Schema({
 
 
 const storySchema=new mongoose.Schema({
+
     title:{type:String,required:true},
     content:{type:String,required:true},
     choices:[optionSchema],

@@ -9,15 +9,21 @@ const createStoryBranch = async (req, res) => {
   }
 };
 
-const createRecursiveStory = async (data,isRoot) => {
+const createRecursiveStory = async (data, isRoot) => {
   const { title, content, choices } = data;
-  console.log(title,content,choices)
-  const newStory = new Story({ title, content,isRoot });
+  console.log(title,choices)
 
+  const newStory = new Story({ title, content, isRoot});
+
+  
   if (choices && choices.length > 0) {
     for (let choice of choices) {
-      const nextBranch = await createRecursiveStory(choice.nextBranch,false); 
-      newStory.choices.push({ text: choice.text, nextBranch: nextBranch._id });
+      if (choice.nextBranch) {
+        const nextBranch = await createRecursiveStory(choice.nextBranch, false); 
+        newStory.choices.push({ text: choice.text, nextBranch: nextBranch._id });
+      } else {
+        newStory.choices.push({ text: choice.text });
+      }
     }
   }
 
