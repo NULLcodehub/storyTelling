@@ -1,3 +1,3 @@
 ﻿# storyTelling
 
--[View Live](https://talebranch.vercel.app/)
+- [View Live](https://talebranch.vercel.app/)
