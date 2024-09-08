@@ -5,6 +5,9 @@ import { useParams } from 'react-router-dom';
 import './StoryDetails.css'
 import Navbar from '../Navbar/Navbar';
 
+import {ClimbingBoxLoader, GridLoader} from 'react-spinners'
+
+
 const StoryDetails = () => {
   const { id } = useParams();
   const [story, setStory] = useState(null);
@@ -12,16 +15,21 @@ const StoryDetails = () => {
   const [error, setError] = useState(null);
   const [selectedChoice, setSelectedChoice] = useState(null);
 
+  const [choiceLoad,setChoiceLoad]=useState(false)
+
   useEffect(() => {
     const fetchStory = async () => {
+      setChoiceLoad(true)
       try {
         const response = await axios.get(`http://localhost:5000/stories/${id}`);
         setStory(response.data);
+        
       } catch (err) {
         setError('Error fetching story details');
         console.error(err);
       } finally {
         setLoading(false);
+        setChoiceLoad(false)
       }
     };
 
@@ -39,30 +47,16 @@ const StoryDetails = () => {
     }
   };
 
-  // const renderBranch = (branch) => {
-  //   return (
-  //     <section>
-  //       <div classN key={branch._id} style={{ marginLeft: '20px' }}>
-  //         <h3>{branch.title}</h3>
-  //         <p>{branch.content}</p>
-  //         {branch.choices && branch.choices.length > 0 && (
-  //           <div>
-  //             <h4>Choices:</h4>
-  //             {branch.choices.map((choice, index) => (
-  //               <div key={index} style={{ marginLeft: '20px' }}>
-  //                 <button onClick={() => handleChoiceClick(choice.nextBranch)}>
-  //                   {choice.text}
-  //                 </button>
-  //               </div>
-  //             ))}
-  //           </div>
-  //         )}
-  //       </div>
-  //     </section>
-  //   );
-  // };
 
-  if (loading) return <p>Loading...</p>;
+
+  if (loading) return (
+
+    
+      <>
+                <div className='h-screen flex justify-center items-center'><ClimbingBoxLoader color={'white'}/></div>
+      </>
+    
+  );
   if (error) return <p>{error}</p>;
   if (!story && !selectedChoice) return <p>No story found</p>;
 
@@ -87,9 +81,10 @@ const StoryDetails = () => {
             
             {displayStory.choices.map((choice, index) => (
               <div key={index} className='w-6/12 inline'>
-                <button className='bg-red-500  rounded   my-2 p-2 w-full h-26 font-bold text-black hover:bg-red-600 ' onClick={() => handleChoiceClick(choice.nextBranch)}>
+                {choiceLoad ? <GridLoader color={'white'}/> : <button className='bg-red-500  rounded   my-2 p-2 w-full h-26 font-bold text-black hover:bg-red-600 ' onClick={() => handleChoiceClick(choice.nextBranch)}>
                   {choice.text}
-                </button>
+                </button> }
+                
               </div>
             ))}
           </div>

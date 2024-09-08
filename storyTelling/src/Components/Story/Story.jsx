@@ -13,11 +13,15 @@ const Story = ({story}) => {
     return (
         
             
-            <div className=' w-4/12 h-56 p-10 '>
-                <h1 className='text-3xl text-red-500 uppercase font-semibold'>{story.title}</h1>
-                <p className='my-5 text-white'>{story.content.substring(0,100) + "..."}</p>
-                <Link to={`/stories/${story._id}`}><div className='text-center p-1  bg-red-500 '>Read Story</div></Link>
+        <div className='bg-gray-800 text-white p-4 rounded-lg shadow-lg'>
+        <h1 className='text-2xl font-semibold mb-2'>{story.title}</h1>
+        <p className='mb-4'>{story.content.substring(0, 100) + "..."}</p>
+        <Link to={`/stories/${story._id}`}>
+            <div className='text-center p-2 bg-red-500 rounded cursor-pointer hover:bg-red-600'>
+                Read Story
             </div>
+        </Link>
+    </div>
     );
 };
 
