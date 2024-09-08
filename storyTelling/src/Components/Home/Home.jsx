@@ -4,6 +4,7 @@ import Story from '../Story/Story';
 import axios from 'axios'
 
 import StoryContext from '../../StoryCentext/StoryContext';
+import Navbar from '../Navbar/Navbar'
 
 
 const Home = () => {
@@ -14,12 +15,10 @@ const Home = () => {
 
 
     return (
-        <div className='mx-10'>
-            <div className='flex justify-around py-4'>
-                <div className='text-2xl font-bold'>StoryTelling</div>
-                <button><div className='bg-red-500 p-3 rounded-md text-white hover:bg-red-600'>Write Your Own Story</div></button>
-            </div>
-
+        <>
+        <Navbar/>
+        <div className='mx-10 home-div'>
+            
            
             <div className='flex gap-10   '>
 
@@ -37,6 +36,7 @@ const Home = () => {
             
 
         </div>
+        </>
     );
 };
 
