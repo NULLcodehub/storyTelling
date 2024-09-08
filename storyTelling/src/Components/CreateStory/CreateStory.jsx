@@ -55,7 +55,7 @@ const CreateStory = () => {
           }))
         }))
       };
-      await axios.post('http://localhost:5000/stories/create', storyData);
+      await axios.post('https://story-telling-api.vercel.app/stories/create', storyData);
       alert('Story created successfully!');
     } catch (error) {
       console.error('Error creating story:', error);

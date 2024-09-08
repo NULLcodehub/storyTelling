@@ -13,7 +13,7 @@ export const StoryProvider=({ children })=>{
         
         const getStories= async ()=>{
             try {
-                const responce =await axios.get('http://localhost:5000/stories/allstories')
+                const responce =await axios.get('https://story-telling-api.vercel.app/stories/allstories')
                 setStories(responce.data)
             } catch (error) {
                 console.log(error)

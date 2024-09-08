@@ -21,7 +21,7 @@ const StoryDetails = () => {
     const fetchStory = async () => {
       setChoiceLoad(true)
       try {
-        const response = await axios.get(`http://localhost:5000/stories/${id}`);
+        const response = await axios.get(`https://story-telling-api.vercel.app/stories/${id}`);
         setStory(response.data);
         
       } catch (err) {
@@ -39,7 +39,7 @@ const StoryDetails = () => {
   const handleChoiceClick = async (id) => {
     // console.log(id)
     try {
-      const response = await axios.get(`http://localhost:5000/stories/${id._id}`);
+      const response = await axios.get(`https://story-telling-api.vercel.app/stories/${id._id}`);
       setSelectedChoice(response.data);
     } catch (err) {
       setError('Error fetching next branch');
