@@ -19,7 +19,7 @@ const StoryDetails = () => {
 
   useEffect(() => {
     const fetchStory = async () => {
-      setChoiceLoad(true)
+      
       try {
         const response = await axios.get(`https://story-telling-api.vercel.app/stories/${id}`);
         setStory(response.data);
@@ -29,7 +29,7 @@ const StoryDetails = () => {
         console.error(err);
       } finally {
         setLoading(false);
-        setChoiceLoad(false)
+       
       }
     };
 
@@ -38,12 +38,15 @@ const StoryDetails = () => {
 
   const handleChoiceClick = async (id) => {
     // console.log(id)
+    setChoiceLoad(true)
     try {
       const response = await axios.get(`https://story-telling-api.vercel.app/stories/${id._id}`);
       setSelectedChoice(response.data);
     } catch (err) {
       setError('Error fetching next branch');
       console.error(err);
+    }finally{
+      setChoiceLoad(false)
     }
   };
 
@@ -81,9 +84,9 @@ const StoryDetails = () => {
             
             {displayStory.choices.map((choice, index) => (
               <div key={index} className='w-6/12 inline'>
-                {choiceLoad ? <GridLoader color={'white'}/> : <button className='bg-red-500  rounded   my-2 p-2 w-full h-26 font-bold text-black hover:bg-red-600 ' onClick={() => handleChoiceClick(choice.nextBranch)}>
-                  {choice.text}
-                </button> }
+              <button className='bg-red-500  rounded   my-2 p-2 w-full h-26 font-bold text-black hover:bg-red-600 ' onClick={() => handleChoiceClick(choice.nextBranch)}>
+                  {choiceLoad ? <GridLoader color={'white'} size={3}/> : `${choice.text}`}
+                </button> 
                 
               </div>
             ))}
